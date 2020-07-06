@@ -21,19 +21,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    @Transactional
     public List<Task> getAllTasks() {
         return taskRepo.findAll();
     }
 
     @Override
-    @Transactional
     public void addTask(Task task) {
         taskRepo.save(task);
     }
 
     @Override
-    @Transactional
     public Task getTaskById(Long taskId) throws TaskNotFoundException {
         return taskRepo
                 .findById(taskId)

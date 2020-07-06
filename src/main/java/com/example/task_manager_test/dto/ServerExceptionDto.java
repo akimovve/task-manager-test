@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @ToString
-public class ServerExceptionDTO {
+public class ServerExceptionDto {
 
     @NotNull
     private String rid;
@@ -19,11 +19,11 @@ public class ServerExceptionDTO {
     @NotNull
     private String error;
 
-    public ServerExceptionDTO(String rid, String error) {
+    public ServerExceptionDto(String rid, String error) {
         this.rid = rid;
         this.timestamp = LocalDateTime.now();
         this.error = error;
     }
 
-    public ServerExceptionDTO() { }
+    public ServerExceptionDto() { }
 }

@@ -9,7 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Data
-public class TaskDTO {
+public class TaskDto {
 
     @NotNull
     @Enumerated(EnumType.STRING)

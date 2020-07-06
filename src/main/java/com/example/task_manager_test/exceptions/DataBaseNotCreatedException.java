@@ -2,7 +2,7 @@ package com.example.task_manager_test.exceptions;
 
 import java.sql.SQLException;
 
-public class SQLDBNotCreatedException extends SQLException {
+public class DataBaseNotCreatedException extends SQLException {
 
     @Override
     public String getMessage() {

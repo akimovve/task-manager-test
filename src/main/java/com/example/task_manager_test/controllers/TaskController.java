@@ -1,7 +1,7 @@
 package com.example.task_manager_test.controllers;
 
-import com.example.task_manager_test.dto.TaskDTO;
-import com.example.task_manager_test.exceptions.SQLDBNotCreatedException;
+import com.example.task_manager_test.dto.TaskDto;
+import com.example.task_manager_test.exceptions.DataBaseNotCreatedException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
 import com.example.task_manager_test.models.Task;
 import com.example.task_manager_test.services.TaskServiceImpl;
@@ -22,14 +22,14 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public List<Task> getAllTasks() throws SQLDBNotCreatedException {
+    public List<Task> getAllTasks() throws DataBaseNotCreatedException {
         List<Task> tasks = taskService.getAllTasks();
-        if (tasks.isEmpty()) throw new SQLDBNotCreatedException();
+        if (tasks.isEmpty()) throw new DataBaseNotCreatedException();
         return tasks;
     }
 
     @PutMapping("/add_task")
-    public void addTask(@RequestBody TaskDTO task) {
+    public void addTask(@RequestBody TaskDto task) {
         taskService.addTask(new Task(task.getTaskType(), task.getUserId(), task.getStatus()));
     }
 
