@@ -1,4 +1,4 @@
-package com.example.taskmanagertest.exceptions;
+package com.example.task_manager_test.exceptions;
 
 public class TaskNotFoundException extends Exception {
 

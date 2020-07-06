@@ -1,8 +1,8 @@
-package com.example.taskmanagertest.handlers;
+package com.example.task_manager_test.handlers;
 
-import com.example.taskmanagertest.dto.ServerExceptionDTO;
-import com.example.taskmanagertest.exceptions.SQLDBNotCreatedException;
-import com.example.taskmanagertest.exceptions.TaskNotFoundException;
+import com.example.task_manager_test.dto.ServerExceptionDTO;
+import com.example.task_manager_test.exceptions.SQLDBNotCreatedException;
+import com.example.task_manager_test.exceptions.TaskNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +15,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class TaskExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TaskNotFoundException.class)
-    public ResponseEntity handleTaskException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleTaskException(Exception ex, WebRequest request) {
         ServerExceptionDTO exceptionDTO = new ServerExceptionDTO(TaskNotFoundException.getRID(), ex.getLocalizedMessage());
         return handleExceptionInternal(ex, exceptionDTO, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(SQLDBNotCreatedException.class)
-    public ResponseEntity handleDBNotCreatedSQLException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleDBNotCreatedSQLException(Exception ex, WebRequest request) {
         ServerExceptionDTO exceptionDTO = new ServerExceptionDTO(SQLDBNotCreatedException.getRID(), ex.getLocalizedMessage());
         return handleExceptionInternal(ex, exceptionDTO, new HttpHeaders(), HttpStatus.SERVICE_UNAVAILABLE, request);
     }

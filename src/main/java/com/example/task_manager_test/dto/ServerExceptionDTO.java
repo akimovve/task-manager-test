@@ -1,4 +1,4 @@
-package com.example.taskmanagertest.dto;
+package com.example.task_manager_test.dto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;

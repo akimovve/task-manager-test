@@ -1,4 +1,4 @@
-package com.example.taskmanagertest.models;
+package com.example.task_manager_test.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;

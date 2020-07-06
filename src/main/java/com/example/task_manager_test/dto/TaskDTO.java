@@ -1,7 +1,7 @@
-package com.example.taskmanagertest.dto;
+package com.example.task_manager_test.dto;
 
-import com.example.taskmanagertest.models.Status;
-import com.example.taskmanagertest.models.TaskType;
+import com.example.task_manager_test.models.Status;
+import com.example.task_manager_test.models.TaskType;
 import com.sun.istack.NotNull;
 import lombok.Data;
 

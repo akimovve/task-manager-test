@@ -1,4 +1,4 @@
-package com.example.taskmanagertest.exceptions;
+package com.example.task_manager_test.exceptions;
 
 import java.sql.SQLException;
 
