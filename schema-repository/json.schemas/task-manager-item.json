@@ -4,6 +4,10 @@
   "type": "object",
   "properties": {
       "id": {
+        "type": "integer",
+        "maximum": 9223372036854775807
+      },
+      "userId": {
           "type": "integer",
           "maximum": 9223372036854775807
       },

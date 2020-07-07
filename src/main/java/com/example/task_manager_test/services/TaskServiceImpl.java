@@ -1,5 +1,6 @@
 package com.example.task_manager_test.services;
 
+import com.example.task_manager_test.exceptions.AddTaskException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
 import com.example.task_manager_test.models.Task;
 import com.example.task_manager_test.repos.TaskRepo;
@@ -21,23 +22,29 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(Task task) {
-        taskRepo.save(task);
+    public <T, D> D addTask(T task, Function<Task, D> toDto, Function<T, Task> toTask)
+            throws AddTaskException {
+        Task convertedTask;
+        try {
+            convertedTask = toTask.apply(task);
+            taskRepo.save(convertedTask);
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new AddTaskException("Неправильный запрос при добавлении задачи.");
+        }
+        return toDto.apply(convertedTask);
     }
 
     @Override
     @Transactional
-    public <T> T getList(Function<List<Task>, T> toDto) throws TaskNotFoundException {
+    public <T> T getList(Function<List<Task>, T> toDto) {
         List<Task> tasks = taskRepo.findAll();
-        if (tasks.isEmpty()) {
-            throw new TaskNotFoundException("Задач в базе данных нет.");
-        }
         return toDto.apply(tasks);
     }
 
     @Override
     @Transactional
-    public <T> T getTaskById(Long taskId, Function<Task, T> toDto) throws TaskNotFoundException {
+    public <T> T getTaskById(Long taskId, Function<Task, T> toDto)
+            throws TaskNotFoundException {
         Task task = taskRepo.findById(taskId).orElse(null);
         if (task == null) {
             throw new TaskNotFoundException(taskId + " - задача не найдена.");

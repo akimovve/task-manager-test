@@ -1,5 +1,6 @@
 package com.example.task_manager_test.handlers;
 
+import com.example.task_manager_test.exceptions.AddTaskException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
 import com.example.task_manager_test.json.schemas.generated.TaskManagerError;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,11 @@ public class TaskExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TaskNotFoundException.class)
     public ResponseEntity<Object> handleTaskException(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, initException(ex), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(AddTaskException.class)
+    public ResponseEntity<Object> handleAddTaskException(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, initException(ex), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 

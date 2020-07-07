@@ -75,6 +75,7 @@
 					<sourcePaths>
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-item.json</sourcePath>
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-list.json</sourcePath>
+						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-add-item-response.json</sourcePath>
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-error.json</sourcePath>
 					</sourcePaths>
 					<targetPackage>com.example.task_manager_test.json.schemas.generated</targetPackage>
