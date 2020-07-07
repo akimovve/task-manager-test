@@ -38,6 +38,26 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- JSON schemas to java classes dep -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<!-- For validation -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- Swagger for using @ApiResponse... -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.20</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -45,6 +65,35 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- JSON schemas to java classes plugin -->
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>1.0.2</version>
+				<configuration>
+					<sourcePaths>
+						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-item.json</sourcePath>
+						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-list.json</sourcePath>
+						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-error.json</sourcePath>
+					</sourcePaths>
+					<targetPackage>com.example.task_manager_test.json.schemas.generated</targetPackage>
+					<targetLanguage>java</targetLanguage>
+					<sourceType>jsonschema</sourceType>
+					<annotationStyle>jackson2</annotationStyle>
+					<useDoubleNumbers>true</useDoubleNumbers>
+					<includeDynamicAccessors>true</includeDynamicAccessors>
+					<includeJsr303Annotations>true</includeJsr303Annotations>
+					<includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+					<removeOldOutput>true</removeOldOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

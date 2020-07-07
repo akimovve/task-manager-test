@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TaskManager item",
+  "type": "object",
+  "properties": {
+      "id": {
+          "type": "integer",
+          "maximum": 9223372036854775807
+      },
+      "taskType": {
+          "type": "string"
+      },
+      "createdAt": {
+          "existingJavaType": "java.time.LocalDateTime",
+          "type": "string",
+          "format": "date-time",
+          "customDateTimePattern" : "dd-MM-yyyy HH:mm:ss",
+          "customTimeZone" : ""
+      },
+      "status": {
+          "type": "string"
+      }
+  }
+}

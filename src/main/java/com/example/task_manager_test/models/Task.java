@@ -12,6 +12,20 @@ import java.time.LocalDateTime;
 @Data
 public class Task {
 
+    public enum Status {
+        AWAITING,
+        PROCESSING,
+        DONE,
+        FAILED
+    }
+
+    public enum TaskType {
+        SHARE_RATES,
+        DELETE_RATE,
+        EDIT_RATE,
+        OPEN_RATE
+    }
+
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,30 +39,12 @@ public class Task {
     private Long userId;
 
     @Column(nullable = false, updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm dd.MM.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime createdAt;
 
     @Column(nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    public void processing() {
-        if (status != Status.AWAITING)
-            throw new IllegalStateException(status.toString());
-        status = Status.PROCESSING;
-    }
-
-    public void finished() {
-        if (status != Status.PROCESSING)
-            throw new IllegalStateException(status.toString());
-        status = Status.DONE;
-    }
-
-    public void failed() {
-        if (status != Status.PROCESSING)
-            throw new IllegalStateException(status.toString());
-        status = Status.FAILED;
-    }
 
     public Task(@NotNull TaskType taskType, @NotNull Long userId, @NotNull Status status) {
         this.taskType = taskType;
@@ -57,6 +53,5 @@ public class Task {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Task() {
-    }
+    public Task() { }
 }

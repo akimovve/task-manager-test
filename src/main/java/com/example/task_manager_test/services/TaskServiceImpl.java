@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -21,19 +22,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAllTasks() {
-        return taskRepo.findAll();
-    }
-
-    @Override
     public void addTask(Task task) {
         taskRepo.save(task);
     }
 
     @Override
-    public Task getTaskById(Long taskId) throws TaskNotFoundException {
-        return taskRepo
+    public <T> T getList(Function<List<Task>, T> toDto) {
+        List<Task> tasks = taskRepo.findAll();
+        return toDto.apply(tasks);
+    }
+
+    @Override
+    public <T> T getTaskById(Long taskId, Function<Task, T> toDto) throws TaskNotFoundException {
+        Task task = taskRepo
                 .findById(taskId)
                 .orElseThrow(TaskNotFoundException::new);
+        return toDto.apply(task);
     }
 }
