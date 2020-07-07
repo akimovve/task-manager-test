@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -27,16 +26,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public <T> T getList(Function<List<Task>, T> toDto) {
+    @Transactional
+    public <T> T getList(Function<List<Task>, T> toDto) throws TaskNotFoundException {
         List<Task> tasks = taskRepo.findAll();
+        if (tasks.isEmpty()) {
+            throw new TaskNotFoundException("Задач в базе данных нет.");
+        }
         return toDto.apply(tasks);
     }
 
     @Override
+    @Transactional
     public <T> T getTaskById(Long taskId, Function<Task, T> toDto) throws TaskNotFoundException {
-        Task task = taskRepo
-                .findById(taskId)
-                .orElseThrow(TaskNotFoundException::new);
+        Task task = taskRepo.findById(taskId).orElse(null);
+        if (task == null) {
+            throw new TaskNotFoundException(taskId + " - задача не найдена.");
+        }
         return toDto.apply(task);
     }
 }

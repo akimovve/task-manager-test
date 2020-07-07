@@ -5,10 +5,18 @@
   "properties": {
       "error": {
           "type": "string"
-      }
+      },
+    "timestamp": {
+        "existingJavaType": "java.time.LocalDateTime",
+        "type": "string",
+        "format": "date-time",
+        "customDateTimePattern" : "dd-MM-yyyy HH:mm:ss",
+        "customTimeZone" : ""
+    }
   },
   "additionalItems": true,
   "required": [
-      "error"
+      "error",
+      "timestamp"
   ]
 }

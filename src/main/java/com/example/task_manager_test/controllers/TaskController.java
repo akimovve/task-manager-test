@@ -1,7 +1,7 @@
 package com.example.task_manager_test.controllers;
 
-import com.example.task_manager_test.exceptions.DataBaseNotCreatedException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
+import com.example.task_manager_test.json.schemas.generated.TaskManagerError;
 import com.example.task_manager_test.json.schemas.generated.TaskManagerItem;
 import com.example.task_manager_test.json.schemas.generated.TaskManagerList;
 import com.example.task_manager_test.models.Task;
@@ -33,9 +33,26 @@ public class TaskController {
             @ApiResponse(
                     code = HttpURLConnection.HTTP_OK,
                     message = "OK",
-                    response = TaskManagerList.class)
+                    response = TaskManagerList.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_UNAUTHORIZED,
+                    message = "Unauthorized",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_FORBIDDEN,
+                    message = "Forbidden",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_BAD_REQUEST,
+                    message = "Bad Request",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                    message = "Internal Server Error",
+                    response = TaskManagerError.class)
     })
-    public TaskManagerList getAllTasks() throws DataBaseNotCreatedException {
+    public TaskManagerList getAllTasks()
+            throws TaskNotFoundException {
         return taskService.getList(dtoConverter::toTaskListResponse);
     }
 
@@ -45,7 +62,31 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{taskId}")
-    public TaskManagerItem getTaskById(@PathVariable Long taskId) throws TaskNotFoundException {
+    @ApiOperation(value = "Получение задачи по её индексу.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_OK,
+                    message = "OK",
+                    response = TaskManagerList.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_UNAUTHORIZED,
+                    message = "Unauthorized",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_FORBIDDEN,
+                    message = "Forbidden",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_BAD_REQUEST,
+                    message = "Bad Request",
+                    response = TaskManagerError.class),
+            @ApiResponse(
+                    code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                    message = "Internal Server Error",
+                    response = TaskManagerError.class)
+    })
+    public TaskManagerItem getTaskById(@PathVariable Long taskId)
+            throws TaskNotFoundException {
         return taskService.getTaskById(taskId, dtoConverter::toTaskItemResponse);
     }
 }
