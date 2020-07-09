@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public interface TaskService {
 
-    <T, D> D addTask(T task, Function<Task, D> toDto, Function<T, Task> toTask)
+    <T, D> D addTask(T task, Function<Task, D> toDto)
             throws AddTaskException;
 
     /**
@@ -20,6 +20,6 @@ public interface TaskService {
 
     <T> T getTaskById(Long taskId, Function<Task, T> toDto) throws TaskNotFoundException;
 
-    <T, D> T getTaskByTypeAndStatus(D request, Function<List<Task>, T> toDto, Function<D, Task> toTask)
+    <T, D> T getTaskByTypeAndStatus(D request, Function<List<Task>, T> toDto)
             throws IncorrectEnterException;
 }

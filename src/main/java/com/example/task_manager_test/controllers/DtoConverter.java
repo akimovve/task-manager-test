@@ -1,7 +1,6 @@
 package com.example.task_manager_test.controllers;
 
 import com.example.task_manager_test.json.schemas.generated.TaskManagerAddItemResponse;
-import com.example.task_manager_test.json.schemas.generated.TaskManagerFindByTypeAndStatusItem;
 import com.example.task_manager_test.json.schemas.generated.TaskManagerItem;
 import com.example.task_manager_test.json.schemas.generated.TaskManagerList;
 import com.example.task_manager_test.models.Task;
@@ -44,19 +43,5 @@ public class DtoConverter {
         response.setId(task.getId());
         response.setStatus(taskConverter.toStatus(task.getStatus()));
         return response;
-    }
-
-    public Task toTask(TaskManagerItem item) {
-        return new Task(
-                taskConverter.toTaskType(item.getTaskType()),
-                item.getUserId(),
-                taskConverter.toStatus(item.getStatus()));
-    }
-
-    public Task toTask(TaskManagerFindByTypeAndStatusItem item) {
-        return new Task(
-                taskConverter.toTaskType(item.getTaskType()),
-                taskConverter.toStatus(item.getStatus())
-        );
     }
 }
