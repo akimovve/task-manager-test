@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.function.Function;
 
-@Transactional
 public interface TaskService {
 
     <T, D> D addTask(T task, Function<Task, D> toDto, Function<T, Task> toTask)
