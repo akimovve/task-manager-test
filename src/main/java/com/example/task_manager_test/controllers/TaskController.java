@@ -1,11 +1,10 @@
 package com.example.task_manager_test.controllers;
 
 import com.example.task_manager_test.exceptions.AddTaskException;
+import com.example.task_manager_test.exceptions.IncorrectEnterException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
-import com.example.task_manager_test.json.schemas.generated.TaskManagerAddItemResponse;
-import com.example.task_manager_test.json.schemas.generated.TaskManagerError;
-import com.example.task_manager_test.json.schemas.generated.TaskManagerItem;
-import com.example.task_manager_test.json.schemas.generated.TaskManagerList;
+import com.example.task_manager_test.json.schemas.generated.*;
+import com.example.task_manager_test.models.Task;
 import com.example.task_manager_test.services.TaskService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -104,5 +103,14 @@ public class TaskController {
             throws TaskNotFoundException {
         return taskService.getTaskById(taskId,
                 dtoConverter::toTaskItemResponse);
+    }
+
+    @PostMapping("/get_by_type_and_status")
+    public TaskManagerList getTaskByTypeAndStatus(
+            @RequestBody TaskManagerFindByTypeAndStatusItem item)
+            throws IncorrectEnterException {
+        return taskService.getTaskByTypeAndStatus(item,
+                dtoConverter::toTaskListResponse,
+                dtoConverter::toTask);
     }
 }

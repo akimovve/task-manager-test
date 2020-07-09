@@ -53,5 +53,11 @@ public class Task {
         this.createdAt = LocalDateTime.now();
     }
 
+    public Task(@NotNull TaskType taskType, @NotNull Status status) {
+        this.taskType = taskType;
+        this.status = status;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Task() { }
 }

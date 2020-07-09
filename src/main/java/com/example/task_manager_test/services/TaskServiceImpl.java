@@ -3,6 +3,7 @@ package com.example.task_manager_test.services;
 import com.example.task_manager_test.annotations.TransactionRequiresNew;
 import com.example.task_manager_test.annotations.TransactionRequired;
 import com.example.task_manager_test.exceptions.AddTaskException;
+import com.example.task_manager_test.exceptions.IncorrectEnterException;
 import com.example.task_manager_test.exceptions.TaskNotFoundException;
 import com.example.task_manager_test.models.Task;
 import com.example.task_manager_test.repos.TaskRepo;
@@ -28,7 +29,6 @@ public class TaskServiceImpl implements TaskService {
     public <T, D> D addTask(T task, Function<Task, D> toDto, Function<T, Task> toTask)
             throws AddTaskException {
         Task convertedTask;
-        System.out.println("Transaction active? : " + TransactionSynchronizationManager.isActualTransactionActive());
         try {
             convertedTask = toTask.apply(task);
             taskRepo.save(convertedTask);
@@ -42,7 +42,6 @@ public class TaskServiceImpl implements TaskService {
     @TransactionRequired
     public <T> T getList(Function<List<Task>, T> toDto) {
         List<Task> tasks = taskRepo.findAll();
-        System.out.println("Transaction active? : " + TransactionSynchronizationManager.isActualTransactionActive());
         return toDto.apply(tasks);
     }
 
@@ -51,10 +50,25 @@ public class TaskServiceImpl implements TaskService {
     public <T> T getTaskById(Long taskId, Function<Task, T> toDto)
             throws TaskNotFoundException {
         Task task = taskRepo.findById(taskId).orElse(null);
-        System.out.println("Transaction active? : " + TransactionSynchronizationManager.isActualTransactionActive());
         if (task == null) {
             throw new TaskNotFoundException(taskId + " - задача не найдена.");
         }
         return toDto.apply(task);
     }
+
+    @Override
+    @TransactionRequired
+    public <T, D> T getTaskByTypeAndStatus(D request, Function<List<Task>, T> toDto, Function<D, Task> toTask)
+            throws IncorrectEnterException {
+        List<Task> tasks;
+        Task requestedTask;
+        try {
+            requestedTask = toTask.apply(request);
+            tasks = taskRepo.findByTaskTypeAndStatus(requestedTask.getTaskType(), requestedTask.getStatus());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new IncorrectEnterException("Неправильный запрос при поиске по типу и значению.");
+        }
+        return toDto.apply(tasks);
+    }
+
 }

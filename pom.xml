@@ -77,6 +77,7 @@
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-list.json</sourcePath>
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-add-item-response.json</sourcePath>
 						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-error.json</sourcePath>
+						<sourcePath>${project.basedir}/schema-repository/json.schemas/task-manager-find-by-type-and-status-item.json</sourcePath>
 					</sourcePaths>
 					<targetPackage>com.example.task_manager_test.json.schemas.generated</targetPackage>
 					<targetLanguage>java</targetLanguage>
