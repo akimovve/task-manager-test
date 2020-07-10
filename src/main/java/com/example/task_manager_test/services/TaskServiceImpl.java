@@ -33,7 +33,7 @@ public class TaskServiceImpl implements TaskService {
             TaskManagerItem item = (TaskManagerItem) task;
             convertedTask = new Task(
                     Task.TaskType.valueOf(item.getTaskType()),
-                    item.getUserId(),
+                    (long)item.getUserId(),
                     Task.Status.valueOf(item.getStatus()));
             taskRepo.save(convertedTask);
         } catch (NullPointerException | IllegalArgumentException e) {

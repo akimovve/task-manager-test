@@ -5,6 +5,18 @@
     "extends": {
         "$ref": "task-manager-item.json"
     },
+    "properties": {
+        "taskType": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 4
+        },
+        "status": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 4
+        }
+    },
     "additionalProperties": false,
     "required": [
         "taskType",

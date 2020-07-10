@@ -4,15 +4,17 @@
   "type": "object",
   "properties": {
       "id": {
-        "type": "integer",
-        "maximum": 9223372036854775807
+          "type": "integer",
+          "maximum": 9223372036854775807
       },
       "userId": {
           "type": "integer",
           "maximum": 9223372036854775807
       },
       "taskType": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 4
       },
       "createdAt": {
           "existingJavaType": "java.time.LocalDateTime",
@@ -22,7 +24,9 @@
           "customTimeZone" : ""
       },
       "status": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 4
       }
   }
 }

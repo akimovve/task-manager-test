@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.HttpURLConnection;
 
 @RestController
@@ -71,7 +72,7 @@ public class TaskController {
                     response = AddTaskException.class)
     })
     public TaskManagerAddItemResponse addTask(
-            @RequestBody TaskManagerItem newTask)
+            @RequestBody @Valid TaskManagerItem newTask)
             throws AddTaskException {
         return taskService.addTask(newTask,
                 dtoConverter::toTaskAddItemResponse);
@@ -124,7 +125,7 @@ public class TaskController {
                     response = IncorrectEnterException.class)
     })
     public TaskManagerList getTaskByTypeAndStatus(
-            @RequestBody TaskManagerFindByTypeAndStatusItem item)
+            @RequestBody @Valid TaskManagerFindByTypeAndStatusItem item)
             throws IncorrectEnterException {
         return taskService.getTaskByTypeAndStatus(item,
                 dtoConverter::toTaskListResponse);
