@@ -10,5 +10,9 @@
       "status": {
           "type": "string"
       }
-  }
+  },
+    "required": [
+        "id",
+        "status"
+    ]
 }
